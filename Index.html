@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SukoConnect Store Preview</title>
+<meta name="description" content="A simple store link for small businesses. Customers tap what they want and the order lands in your WhatsApp.">
+<meta property="og:title" content="SukoConnect Store Preview">
+<meta property="og:description" content="A simple store link for small businesses. Try it and tell me what you think.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ECE5D6;--surface:#F6F1E6;--ink:#241F1A;--muted:#7B7060;--line:#D9CFBB;--accent:#2F4A3A;--on:#F6F1E6;--brass:#8F6D2B;--danger:#9B3B2E;--l1:78%;--l2:66%;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#1B1914;--surface:#25221B;--ink:#EFE8D8;--muted:#A39881;--line:#3A352A;--accent:#9DBFA6;--on:#16231B;--brass:#D2B070;--danger:#E08A7A;--l1:34%;--l2:26%}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#1B1914;--surface:#25221B;--ink:#EFE8D8;--muted:#A39881;--line:#3A352A;--accent:#9DBFA6;--on:#16231B;--brass:#D2B070;--danger:#E08A7A;--l1:34%;--l2:26%}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 'DM Sans',system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:40}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;letter-spacing:-.01em;line-height:1.15}
+button,input,select,textarea{font:inherit;color:inherit}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
+.seg{display:flex;max-width:640px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:3px}
+.seg button{flex:1;border:0;background:transparent;padding:9px 8px;border-radius:11px;cursor:pointer;color:var(--muted);font-weight:500}
+.seg button.on{background:var(--accent);color:var(--on)}
+main{max-width:640px;margin:0 auto;padding:20px 16px 130px}
+.hero h1{font-size:34px;font-weight:700}
+.hero p{color:var(--muted);margin:8px 0 18px;max-width:34ch}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:14px}
+.chip{border:1px solid var(--line);background:transparent;padding:7px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.pic{aspect-ratio:1/.82;display:grid;place-items:center;font-size:46px;position:relative}
+.tag{position:absolute;top:8px;left:8px;background:var(--ink);color:var(--bg);font-size:12px;padding:2px 9px;border-radius:999px}
+.card .b{padding:12px;display:flex;flex-direction:column;gap:3px;flex:1}
+.card h3{font-size:17px}
+.price{color:var(--brass);font-weight:600}
+.desc{color:var(--muted);font-size:13px;line-height:1.4}
+.card .act{margin-top:auto;padding-top:10px}
+.btn{border:1px solid var(--line);background:var(--surface);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:500}
+.btn.pri{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.btn.wide{width:100%}.btn.sm{padding:7px 11px;font-size:13px}
+.btn.del{color:var(--danger)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.chip:focus-visible,.seg button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.step{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:3px}
+.step button{width:36px;height:34px;border:0;background:transparent;border-radius:9px;cursor:pointer;font-size:18px}
+.step span{font-weight:600}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));z-index:20;background:linear-gradient(transparent,var(--bg) 40%)}
+.bar .btn{max-width:640px;margin:0 auto;display:flex;justify-content:space-between;padding:15px 18px;border-radius:16px;font-size:16px}
+.scrim{position:fixed;inset:0;background:rgba(20,15,10,.45);z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;max-height:90%;overflow:auto;background:var(--surface);border-radius:26px 26px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .28s ease}
+.sheet.on{transform:none}
+.sheet>div{max-width:600px;margin:0 auto}
+.sheet h2{font-size:24px;margin-bottom:14px}
+.line{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.line .n{flex:1;min-width:0}
+.total{display:flex;justify-content:space-between;font-family:Fraunces,Georgia,serif;font-size:22px;padding:14px 0}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px}
+textarea{resize:vertical;min-height:70px}
+.row{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:10px;margin-bottom:10px}
+.row .pic{width:58px;aspect-ratio:1;border-radius:12px;font-size:28px;flex:none}
+.row .n{flex:1;min-width:0}
+.row .n b{display:block;font-family:Fraunces,Georgia,serif;font-size:16px}
+.acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center}
+.sw{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin:0 6px 0 0;cursor:pointer}
+.sw input{width:auto}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.head h2{font-size:26px}
+.link{background:var(--surface);border:1px dashed var(--line);border-radius:16px;padding:12px;margin-bottom:16px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.link b{font-weight:500;word-break:break-all;font-size:14px}
+.ord{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px}
+.ord .t{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.st{font-size:12px;padding:2px 10px;border-radius:999px;background:var(--accent);color:var(--on)}
+.st.done{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.empty{text-align:center;color:var(--muted);padding:40px 12px;border:1px dashed var(--line);border-radius:20px}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 70px);transform:translate(-50%,-20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;z-index:70;opacity:0;transition:.25s;pointer-events:none;max-width:90%;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:22px}
+.note b{font-family:Fraunces,Georgia,serif;font-size:20px}
+.note p{margin:6px 0 12px;color:var(--muted)}
+.opt{display:flex;gap:10px;align-items:center;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:11px 12px;margin:0 0 8px;color:var(--ink);font-size:15px;cursor:pointer}
+.opt input{width:auto}
+.opt:has(input:checked){border-color:var(--accent);background:var(--surface)}
+@media (min-width:560px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="top"><div class="seg" role="tablist">
+<button id="v-store" onclick="setView('store')">Customer view</button>
+<button id="v-owner" onclick="setView('owner')">Owner view</button></div></div>
+<main id="app"></main>
+<div class="scrim" id="scrim" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet"><div id="sheetBody"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const naira=n=>'₦'+Number(n).toLocaleString('en-NG');
+const SHOP='Adunni’s Bakes', WA='2348000000000';
+let nid=10;
+const S={view:'store',tab:'products',cat:'All',cart:{},
+products:[
+{id:1,name:'Honey loaf',price:3500,cat:'Bakes',desc:'Soft, dense and baked this morning.',e:'🍞',h:36,sold:false},
+{id:2,name:'Chin chin tub',price:2500,cat:'Snacks',desc:'',e:'🥜',h:28,sold:false},
+{id:3,name:'Vanilla cupcakes, box of 6',price:4800,cat:'Bakes',desc:'Buttercream, three colours.',e:'🧁',h:340,sold:false},
+{id:4,name:'Zobo, 1 litre',price:1500,cat:'Drinks',desc:'Chilled, with ginger.',e:'🥤',h:350,sold:false},
+{id:5,name:'Meat pie',price:900,cat:'Snacks',desc:'',e:'🥧',h:24,sold:false},
+{id:6,name:'Birthday cake, 8 inch',price:25000,cat:'Bakes',desc:'Order two days ahead.',e:'🎂',h:320,sold:true}],
+orders:[{id:1,name:'Tolu A.',phone:'0803 000 0000',address:'12 Market Road, Ayetoro',items:[{n:'Honey loaf',q:2,p:3500}],total:7000,time:'Today, 10:42',done:false}]};
+const cats=()=>['All',...new Set(S.products.map(p=>p.cat))];
+const pic=p=>`background:linear-gradient(135deg,hsl(${p.h} 38% var(--l1)),hsl(${p.h} 32% var(--l2)))`;
+const count=()=>Object.values(S.cart).reduce((a,b)=>a+b,0);
+const total=()=>Object.entries(S.cart).reduce((a,[id,q])=>a+q*S.products.find(p=>p.id==id).price,0);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.k);toast.k=setTimeout(()=>t.classList.remove('on'),2600)}
+function setView(v){S.view=v;render();scrollTo(0,0)}
+function setTab(t){S.tab=t;render()}
+function setCat(c){S.cat=c;render()}
+function add(id){S.cart[id]=(S.cart[id]||0)+1;render()}
+function qty(id,d){S.cart[id]=(S.cart[id]||0)+d;if(S.cart[id]<=0)delete S.cart[id];render();if($('#sheet').classList.contains('on'))count()?openCart():closeSheet()}
+function sheet(h){$('#sheetBody').innerHTML=h;$('#sheet').classList.add('on');$('#scrim').classList.add('on')}
+function closeSheet(){$('#sheet').classList.remove('on');$('#scrim').classList.remove('on')}
+
+function render(){
+ $('#v-store').classList.toggle('on',S.view=='store');$('#v-owner').classList.toggle('on',S.view=='owner');
+ $('#app').innerHTML=noteHTML()+(S.view=='store'?storeHTML():ownerHTML());
+}
+function storeHTML(){
+ const list=S.products.filter(p=>S.cat=='All'||p.cat==S.cat);
+ const cards=list.map(p=>{const q=S.cart[p.id]||0;
+  const act=p.sold?`<button class="btn wide" disabled>Sold out</button>`:q?`<div class="step"><button onclick="qty(${p.id},-1)" aria-label="Remove one">−</button><span>${q}</span><button onclick="qty(${p.id},1)" aria-label="Add one">+</button></div>`:`<button class="btn pri wide" onclick="add(${p.id})">Add to order</button>`;
+  return `<article class="card"><div class="pic" style="${pic(p)}">${p.e}${p.sold?'<span class="tag">Sold out</span>':''}</div><div class="b"><h3>${esc(p.name)}</h3><span class="price">${naira(p.price)}</span>${p.desc?`<span class="desc">${esc(p.desc)}</span>`:''}<div class="act">${act}</div></div></article>`}).join('');
+ const bar=count()?`<div class="bar"><button class="btn pri" onclick="openCart()"><span>View order (${count()})</span><span>${naira(total())}</span></button></div>`:'';
+ return `<section class="hero"><h1>${SHOP}</h1><p>Fresh from the oven. Pick what you want and send your order on WhatsApp.</p></section>
+ <div class="chips">${cats().map(c=>`<button class="chip ${c==S.cat?'on':''}" onclick="setCat('${c}')">${c}</button>`).join('')}</div>
+ <div class="grid">${cards||'<div class="empty">Nothing in this category yet.</div>'}</div>${bar}`;
+}
+function openCart(){
+ const lines=Object.entries(S.cart).map(([id,q])=>{const p=S.products.find(x=>x.id==id);return `<div class="line"><div class="n"><b>${esc(p.name)}</b><br><span class="price">${naira(p.price*q)}</span></div><div class="step" style="width:112px"><button onclick="qty(${p.id},-1)" aria-label="Remove one">−</button><span>${q}</span><button onclick="qty(${p.id},1)" aria-label="Add one">+</button></div></div>`}).join('');
+ sheet(`<h2>Your order</h2>${lines}<div class="total"><span>Total</span><span>${naira(total())}</span></div>
+ <label for="c-name">Your name</label><input id="c-name" autocomplete="name">
+ <label for="c-phone">Phone number</label><input id="c-phone" type="tel" autocomplete="tel">
+ <label for="c-addr">Delivery address</label><textarea id="c-addr"></textarea>
+ <button class="btn pri wide" style="margin-top:16px;padding:15px" onclick="send()">Send order on WhatsApp</button>`);
+}
+function send(){
+ const name=$('#c-name').value.trim(),phone=$('#c-phone').value.trim(),addr=$('#c-addr').value.trim();
+ if(!name||!phone||!addr){toast('Add your name, phone number and address first.');return}
+ const items=Object.entries(S.cart).map(([id,q])=>{const p=S.products.find(x=>x.id==id);return{n:p.name,q,p:p.price}});
+ const t=total();
+ S.orders.unshift({id:++nid,name,phone,address:addr,items,total:t,time:'Just now',done:false});
+ const msg=`New order from ${name}\nPhone: ${phone}\nAddress: ${addr}\n\n`+items.map(i=>`${i.q} x ${i.n}  ${naira(i.p*i.q)}`).join('\n')+`\n\nTotal: ${naira(t)}`;
+ window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+ S.cart={};closeSheet();render();toast('Order saved. WhatsApp is opening.');
+}
+
+function ownerHTML(){
+ const nw=S.orders.filter(o=>!o.done).length;
+ const seg=`<div class="chips"><button class="chip ${S.tab=='products'?'on':''}" onclick="setTab('products')">Products (${S.products.length})</button><button class="chip ${S.tab=='orders'?'on':''}" onclick="setTab('orders')">Orders (${nw} new)</button></div>`;
+ const link=`<div class="link"><b>sukoconnect.com/store/adunnis-bakes</b><button class="btn sm" onclick="copyLink()">Copy link</button></div>`;
+ if(S.tab=='orders'){
+  const o=S.orders.map(o=>`<div class="ord"><div class="t"><h3>${esc(o.name)}</h3><span class="st ${o.done?'done':''}">${o.done?'Done':'New'}</span></div><div class="desc">${esc(o.phone)}, ${esc(o.address)}<br>${o.time}</div><div style="margin:10px 0">${o.items.map(i=>`${i.q} x ${esc(i.n)}`).join('<br>')}</div><div class="t"><b class="price">${naira(o.total)}</b><button class="btn sm" onclick="doneOrder(${o.id})">${o.done?'Reopen':'Mark done'}</button></div></div>`).join('');
+  return `<div class="head"><h2>Orders</h2></div>${seg}${o||'<div class="empty">No orders yet. Share your store link and they will show up here.</div>'}`;
+ }
+ const rows=S.products.map(p=>`<div class="row"><div class="pic" style="${pic(p)}">${p.e}</div><div class="n"><b>${esc(p.name)}</b><span class="price">${naira(p.price)}</span> <span class="desc">${esc(p.cat)}</span><div class="acts"><label class="sw"><input type="checkbox" ${p.sold?'checked':''} onchange="toggleSold(${p.id})">Sold out</label><button class="btn sm" onclick="openForm(${p.id})">Edit</button><button class="btn sm del" onclick="del(${p.id})">Delete</button></div></div></div>`).join('');
+ return `<div class="head"><h2>${SHOP}</h2><button class="btn pri sm" onclick="openForm()">Add product</button></div>${link}${seg}${rows||'<div class="empty">No products yet. Tap Add product to create your first one.</div>'}`;
+}
+const DAVID_WA='2348119493211';
+function noteHTML(){return `<div class="note"><b>Hi, I’m David</b><p>I’m building a simple store link for small businesses, and this is a rough preview. Tap around: switch between what your customers see and what you see as the owner. The shop here is just an example. I’d really value your honest thoughts.</p><button class="btn pri sm" onclick="openFeedback()">Tell me what you think</button></div>`}
+function openFeedback(){
+ sheet(`<h2>Quick question</h2>
+ <label>Be honest: if your customers could order from you like this, would you use it?</label>
+ <label class="opt"><input type="radio" name="use" value="Yes, I would use it">Yes, I would use it</label>
+ <label class="opt"><input type="radio" name="use" value="Maybe, I would need to see more">Maybe, I’d need to see more</label>
+ <label class="opt"><input type="radio" name="use" value="Not really">Not really</label>
+ <label for="q-pay">What would feel fair for you to pay for this?</label><input id="q-pay" placeholder="A once-off amount, monthly, or anything you have in mind">
+ <label for="q-better">What’s one thing that would make it work better for your business?</label><textarea id="q-better"></textarea>
+ <label for="q-name">Your name and business (optional)</label><input id="q-name">
+ <button class="btn pri wide" style="margin-top:16px;padding:15px" onclick="sendFeedback()">Send my answer on WhatsApp</button>`);
+}
+function sendFeedback(){
+ const u=document.querySelector('input[name=use]:checked');
+ if(!u){toast('Pick one of the three answers first.');return}
+ const pay=$('#q-pay').value.trim()||'Not sure yet',better=$('#q-better').value.trim()||'Nothing for now',who=$('#q-name').value.trim();
+ const msg=`Hi David, here’s my feedback on the store preview.\n\nWould I use it: ${u.value}\nWhat I’d pay: ${pay}\nWhat would make it better: ${better}`+(who?`\n\n${who}`:'');
+ window.open(`https://wa.me/${DAVID_WA}?text=${encodeURIComponent(msg)}`,'_blank');
+ closeSheet();toast('Thank you. Your answer is ready to send in WhatsApp.');
+}
+function copyLink(){try{navigator.clipboard.writeText('sukoconnect.com/store/adunnis-bakes')}catch(e){}toast('Store link copied.')}
+function toggleSold(id){const p=S.products.find(x=>x.id==id);p.sold=!p.sold;render()}
+function del(id){const p=S.products.find(x=>x.id==id);if(!confirm(`Delete ${p.name}?`))return;S.products=S.products.filter(x=>x.id!=id);delete S.cart[id];render();toast('Product deleted.')}
+function doneOrder(id){const o=S.orders.find(x=>x.id==id);o.done=!o.done;render()}
+function openForm(id){
+ const p=id?S.products.find(x=>x.id==id):{name:'',price:'',cat:'',desc:''};
+ sheet(`<h2>${id?'Edit product':'Add product'}</h2>
+ <label for="f-name">Product name</label><input id="f-name" value="${esc(p.name)}">
+ <label for="f-price">Price in naira</label><input id="f-price" type="number" inputmode="numeric" value="${p.price}">
+ <label for="f-cat">Category</label><input id="f-cat" list="cl" value="${esc(p.cat)}"><datalist id="cl">${cats().filter(c=>c!='All').map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+ <label for="f-desc">Description (optional)</label><textarea id="f-desc">${esc(p.desc)}</textarea>
+ <label>Photo</label><div class="empty" style="padding:16px">Photo upload comes in the real build.</div>
+ <button class="btn pri wide" style="margin-top:16px;padding:15px" onclick="saveProduct(${id||0})">${id?'Save changes':'Add product'}</button>`);
+}
+function saveProduct(id){
+ const name=$('#f-name').value.trim(),price=+$('#f-price').value,cat=$('#f-cat').value.trim()||'General',desc=$('#f-desc').value.trim();
+ if(!name||!(price>0)){toast('Add a name and a price above zero.');return}
+ if(id){Object.assign(S.products.find(x=>x.id==id),{name,price,cat,desc});toast('Changes saved.')}
+ else{S.products.unshift({id:++nid,name,price,cat,desc,e:'🛍️',h:Math.floor(Math.random()*360),sold:false});toast('Product added. Customers can see it now.')}
+ closeSheet();render();
+}
+render();
+</script>
+</body>
+</html>
